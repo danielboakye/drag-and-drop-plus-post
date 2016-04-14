@@ -1,0 +1,104 @@
+<style type="text/css">li{text-decoration-style: double; height: 30px; width: 50%; border: 2px solid #fff; margin-bottom: 4px; text-align: center; line-height: 30px; font-size: 19px; font-family: cursive; font-weight: bolder; list-style: none;} :root{ cursor: pointer; }</style>
+
+	<div style="width: 100%; height: 625px; background-color: #ccc;">
+	
+		<div style="float: left; width: 48%; border-right: 40px dotted #fff; height: 100%;" class="all_courses">
+			<h1>Courses</h1>
+			<ul>
+				<li>maths</li>
+				<li>english</li>
+				<li>french</li>
+				<li>twi</li>
+				<li>c++</li>
+				<li>java</li>
+				<li>node</li>
+				<li>php</li>
+				<li>angular</li>
+				<li>ajax</li>
+				<li>javascript</li>
+				<li>bootstrap</li>
+			</ul>
+		</div>
+
+		<div style="float: left; width: 40%; height: 100%;" class="selected">
+			<h1>Selected Courses</h1>
+			<ul style="float: left; width: 100%;">
+				<li style="">first</li>
+				<li style="">second</li>
+			</ul>
+
+			<button class="done" style="padding: .5em; border-radius: 5px; background-color: blue; width: 180px; color: #fff; font-family: cursive; font-size: 18px; margin-left: 2.3em;">submit</button>
+		</div>		
+
+	</div>
+
+	<script type="text/javascript">
+
+		var courses = [];
+		var link = "";
+
+		$(".all_courses li").on('click', function(){
+
+			$('.all_courses h2').hide();
+			$('.all_courses p').hide();
+
+			var select = $(this).text()
+			courses.push(select);		
+
+			var finalElement = "<li>" + select + "</li>";
+			$(".selected ul").add(finalElement).show();
+
+			$('.selected ul li').css("color", "red");
+
+			$(this).remove();
+		});
+
+
+
+		$(".selected ul li").on('click', function(){
+		
+			console.log("sds");
+
+			var reject = $(this).text()
+			var i = courses.indexOf(reject);
+			if (i > -1) {
+				courses.splice(i, 1);
+			}
+
+			// var myCourses = document.querySelector('.');
+			var newCourse = document.createElement('li');
+			newCourse.innerHTML = reject;
+			// myCourses.appendChild(newCourse);		
+			
+			// var revertElement = "<li>" + reject + "</li>";
+
+			$(".all_courses ul").add(newCourse).show();
+
+			$('.all_courses ul li').css("color", "black");
+
+			$(this).remove();
+		});
+
+
+
+
+
+		$(".done").on("click", function(){
+			for (var i = 0; i < courses.length; i++) {
+				if( i < (courses.length - 1) ){
+					link += "courses[" + i + "]=" + courses[i] + "&";
+				}else{
+					link += "courses[" + i + "]=" + courses[i];
+				}
+			}
+
+			if( link.length > 0){
+				window.location.href = "form-processing.php?" + link;
+			}else{
+				$(".all_courses").append("<h2> No course selected </h2><p>Add a course and try again!</p>").show();
+				$('.all_courses h2').css("color", "red");
+				$('.all_courses p').css("color", "blue");	
+			}
+			// console.log("form-processing.php?"+link);
+		});
+	</script>
